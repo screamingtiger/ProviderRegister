@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
-import Utils from './utils/utils';
+import Validators from './lib/validators';
 import { boolean } from 'yargs';
 
 const App = () => {
@@ -12,13 +12,13 @@ const App = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  const validateFormValue = (validator: (input: string) => boolean,value : string) : boolean => {
-    return validator(value);
-  }
 
+
+  
   const validateForm = (): boolean => {
-    if (!Utils.hasValue(firstName))
+    if (!Validators.hasValue(firstName))
       return false;
+    
     return true;
   }
 
