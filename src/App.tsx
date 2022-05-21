@@ -2,7 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import Validators from './lib/validators';
-import { boolean } from 'yargs';
+import { getGoogle } from './lib/api/api';
+import { appendFile } from 'fs';
+
 
 const App = () => {
   const [firstName, setFirstName] = useState("");
@@ -11,6 +13,7 @@ const App = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [google,setGoogle] = useState("");
 
 
 
@@ -22,13 +25,17 @@ const App = () => {
     return true;
   }
 
+  const getGoogleHandler = (event: any) => {
+      getGoogle().then((r) => {setGoogle(r)})
+  }
+
 
   return (
     <div className="App">
       <form>
         <div>
           <label>First Name</label>
-          <input type="text" onChange={(evt) => { setFirstName(evt.target.value) }} placeholder="First Name" />
+          <input type="text"  value={firstName} onChange={(evt) => { setFirstName(evt.target.value) }} placeholder="First Name" />
         </div>
         <div>
           <label>Last Name</label>
@@ -51,6 +58,8 @@ const App = () => {
           <input type="text" onChange={(evt) => setEmail(evt.target.value)} placeholder="Email Address" />
         </div>
       </form>
+      <button onClick={evt => getGoogleHandler(evt)}>Get Google</button>
+      <textarea value={JSON.stringify(google)}></textarea>
     </div>
 
   );
